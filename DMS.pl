@@ -9,8 +9,7 @@ listNums(L) :- L = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16].
 check_rows(L) :- matrix4x4(L, Y), check_rows2(Y).
 
 check_rows2([]).
-check_rows2([X|Xs]) :- check_rows2(X, Xs).
-check_rows2(X, Xs) :- sum34(X), check_rows2(Xs).
+check_rows2([X|Xs]) :- sum34(X), check_rows2(Xs).
 
 /*Checking the sum of the columns*/
 check_columns(L) :- matrix4x4(L, Y), check_columns2(Y).
@@ -23,6 +22,21 @@ check_columns2(A, B, C, [D|Ds]) :- check_columns2(A, B, C, D, Ds).
 check_columns2([A|As], [B|Bs], [C|Cs], [D|Ds], E) :- sum34([A, B, C, D]), check_columns2(As, Bs, Cs, Ds, E).
 
 /*checking the sum of the diagonals*/
+
+/*-------------------- Rotations --------------------*/
+
+/*rotation of rows*/
+rot_rows(L) :- matrix4x4(L, M), rot_rows2(M).
+
+rot_rows2([], MR).
+rot_rows2([X|Xs]) :- append(Xs, [X], MR), rot_rows2([], MR).
+
+/*rotation of columns*/
+ rot_columns(L) :- matrix4x4(L, M), rot_columns2(M).
+
+ rot_columns2([], MR).
+ rot_columns2([A, B, C, D]) :- rot_columns2(A, B, C, D).
+ rot_columns2([A|As], [B|Bs], [C|Cs], [D|Ds]) :- append(As, [A], Ar), append(Bs, [B], Br), append(Cs, [C], Cr), append(Ds, [D], Dr), rot_columns2([], [Ar, Br, Cr, Dr]).
 
 /*-------------------- Auxiliar Functions --------------------*/
 
@@ -39,4 +53,4 @@ list_sum([Head|Tail], Sum):-
 matrix4x4(Xs, Ys) :- length(Xs, 16), matrix4x4(Xs, [], Ys).
 matrix4x4([], [], []).
 matrix4x4([X|Xs], S, Ys) :-  not(length(S, 4)), not(is_list(X)), matrix4x4(Xs, [X|S], Ys).
-matrix4x4(Xs, S, [Y|Ys]) :- length(S, 4), reverse(S,Y), matrix4x4(Xs, [], Ys).                      Kevin Quirós
+matrix4x4(Xs, S, [Y|Ys]) :- length(S, 4), reverse(S,Y), matrix4x4(Xs, [], Ys).
