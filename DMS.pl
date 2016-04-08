@@ -11,7 +11,14 @@ check_rows2([X|Xs]) :- check_rows2(X, Xs).
 check_rows2(X, Xs) :- sum34(X), check_rows2(Xs).
 
 /*Checking the sum of the columns*/
+check_columns(L) :- matrix4x4(L, Y), check_columns2(Y).
 
+check_columns2([], [], [], [], []).
+check_columns2([A|As]) :- check_columns2(A, As).
+check_columns2(A, [B|Bs]) :- check_columns2(A, B, Bs).
+check_columns2(A, B, [C|Cs]) :- check_columns2(A, B, C, Cs).
+check_columns2(A, B, C, [D|Ds]) :- check_columns2(A, B, C, D, Ds).
+check_columns2([A|As], [B|Bs], [C|Cs], [D|Ds], E) :- sum34([A, B, C, D]), check_columns2(As, Bs, Cs, Ds, E).
 
 /*Sum is 34*/
 sum34(L):- list_sum(L, T), T==34.
