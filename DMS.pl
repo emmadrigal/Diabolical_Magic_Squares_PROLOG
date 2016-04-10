@@ -1,12 +1,13 @@
-diabolic([1, 8, 13, 12, 14, 11, 2, 7, 4, 5, 16, 9, 15, 10, 3, 6]).
-diabolic([1, 12, 7, 14, 8, 13, 2, 11, 10, 3, 16, 5, 15, 6, 9, 4]).
-diabolic([1, 8, 11, 14, 12, 13, 2, 7, 6, 3, 16, 9, 15, 10, 5, 4]).
+/* [1, 8, 13, 12, 14, 11, 2, 7, 4, 5, 16, 9, 15, 10, 3, 6] */
+/* [1, 12, 7, 14, 8, 13, 2, 11, 10, 3, 16, 5, 15, 6, 9, 4] */
+/* [1, 8, 11, 14, 12, 13, 2, 7, 6, 3, 16, 9, 15, 10, 5, 4] */
+
+diabolic(L) :- matrix4x4(L, M), check_rows(M), check_columns(M), check_diagonals(M), check_3x3(M), check_2x2(M).
 listNums(L) :- L = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16].
 
 /*-------------------- Validate Functions --------------------*/
 
 /*Checking the sum of the rows*/
-
 check_rows([]).
 check_rows([X|Xs]) :- sum34(X), check_rows(Xs).
 
@@ -18,7 +19,6 @@ check_columns([A|As], [B|Bs], [C|Cs], [D|Ds]) :- sum34([A, B, C, D]), check_colu
 /*checking the sum of the diagonals*/
 check_diagonals(M) :- check_diagonals2(M), rot_columns(M, MR), check_diagonals2(MR), rot_columns(MR, MR2), check_diagonals2(MR2), rot_columns(MR2, MR3), check_diagonals2(MR3).
 check_diagonals2(M) :- check_diagonals_aux(M),  reflection(M, MR), check_diagonals_aux(MR).
-
 check_diagonals_aux([A, B, C, D]) :- nth0(0, A, A1), nth0(1, B, B1), nth0(2, C, C1), nth0(3, D, D1), sum34([A1, B1, C1, D1]).
 
 /*Checking the sum of the corners of any 3x3 square*/
@@ -32,6 +32,12 @@ check_2x2([X|Xs],[Y|Ys]) :- sum34([X, Xs, Y, Ys]).
 check_2x2([A|As], [B|Bs], [C|Cs], [D|Ds]) :- sum34([A, Bs, C, Ds]), sum34([As, B, Cs, D]).
 
 /*-------------------- Rotations --------------------*/
+
+/*Convolution */
+convolution([[A, B, C, D], [E, F ,G, H], [I, J, K, L], [M, N, O, P]], MR) :- MR = [[A, D, H, E], [B, C, G, F], [N, O, K, J], [M, P, L, I]].
+
+/*Rotation about the center point*/
+rotation_center([[A, B, C, D], [E, F ,G, H], [I, J, K, L], [M, N, O, P]], MR) :- MR = [[A, E, H, D], [B, F, G, C], [N, J, K, O], [M, I, L, P]].
 
 /*reflection*/
 reflection([A, B, C, D], MR) :- reverse(A, As), reverse(B, Bs), reverse(C, Cs), reverse(D, Ds), MR = [As, Bs, Cs, Ds].
