@@ -24,6 +24,13 @@ check_diagonals2(M) :- check_diagonals_aux(M),  reflection(M, MR), check_diagona
 
 check_diagonals_aux([A, B, C, D]) :- nth0(0, A, A1), nth0(1, B, B1), nth0(2, C, C1), nth0(3, D, D1), sum34([A1, B1, C1, D1]).
 
+/*Checking the sum of the corners of any 3x3 square*/
+
+check_3x3([A, B, C, D]) :- check_3x3(A, C), check_3x3(B, D).
+check_3x3([X|Xs], [Y|Ys]) :- nth0(0, Xs, X0), nth0(1, Xs, X1), nth0(2, Xs, X2), nth0(0, Ys, Y0), nth0(1, Ys, Y1), nth0(2, Ys, Y2), sum34([X, X1, Y, Y1]), sum34([X0, X2, Y0, Y2]).
+
+/*checking the sum of any 2x2 square*/
+
 /*-------------------- Rotations --------------------*/
 
 /*reflection*/
