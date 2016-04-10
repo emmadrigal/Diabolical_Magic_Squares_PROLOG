@@ -3,40 +3,38 @@ diabolic([1, 12, 7, 14, 8, 13, 2, 11, 10, 3, 16, 5, 15, 6, 9, 4]).
 diabolic([1, 8, 11, 14, 12, 13, 2, 7, 6, 3, 16, 9, 15, 10, 5, 4]).
 listNums(L) :- L = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16].
 
+prueba(L):- matrix4x4(L, M), reflection(M, MR).
 /*-------------------- Validate Functions --------------------*/
 
 /*Checking the sum of the rows*/
-check_rows(L) :- matrix4x4(L, Y), check_rows2(Y).
 
-check_rows2([]).
-check_rows2([X|Xs]) :- sum34(X), check_rows2(Xs).
+check_rows([]).
+check_rows([X|Xs]) :- sum34(X), check_rows(Xs).
 
 /*Checking the sum of the columns*/
-check_columns(L) :- matrix4x4(L, Y), check_columns2(Y).
 
-check_columns2([], [], [], [], []).
-check_columns2([A|As]) :- check_columns2(A, As).
-check_columns2(A, [B|Bs]) :- check_columns2(A, B, Bs).
-check_columns2(A, B, [C|Cs]) :- check_columns2(A, B, C, Cs).
-check_columns2(A, B, C, [D|Ds]) :- check_columns2(A, B, C, D, Ds).
-check_columns2([A|As], [B|Bs], [C|Cs], [D|Ds], E) :- sum34([A, B, C, D]), check_columns2(As, Bs, Cs, Ds, E).
+check_columns([A, B, C, D]) :- check_columns(A, B, C ,D).
+check_columns([], [], [], []).
+check_columns([A|As], [B|Bs], [C|Cs], [D|Ds]) :- sum34([A, B, C, D]), check_columns(As, Bs, Cs ,Ds).
 
 /*checking the sum of the diagonals*/
 
+check_diagonals(M) :- check_diagonals2(M), rot_columns(M, MR), check_diagonals2(MR), rot_columns(MR, MR2), check_diagonals2(MR2), rot_columns(MR2, MR3), check_diagonals2(MR3).
+check_diagonals2(M) :- check_diagonals_aux(M),  reflection(M, MR), check_diagonals_aux(MR).
+
+check_diagonals_aux([A, B, C, D]) :- nth0(0, A, A1), nth0(1, B, B1), nth0(2, C, C1), nth0(3, D, D1), sum34([A1, B1, C1, D1]).
+
 /*-------------------- Rotations --------------------*/
 
-/*rotation of rows*/
-rot_rows(L) :- matrix4x4(L, M), rot_rows2(M).
+/*reflection*/
+reflection([A, B, C, D], MR) :- reverse(A, As), reverse(B, Bs), reverse(C, Cs), reverse(D, Ds), MR = [As, Bs, Cs, Ds].
 
-rot_rows2([], MR).
-rot_rows2([X|Xs]) :- append(Xs, [X], MR), rot_rows2([], MR).
+/*rotation of rows*/
+rot_rows([X|Xs], MR) :- append(Xs, [X], MR).
 
 /*rotation of columns*/
- rot_columns(L) :- matrix4x4(L, M), rot_columns2(M).
-
- rot_columns2([], MR).
- rot_columns2([A, B, C, D]) :- rot_columns2(A, B, C, D).
- rot_columns2([A|As], [B|Bs], [C|Cs], [D|Ds]) :- append(As, [A], Ar), append(Bs, [B], Br), append(Cs, [C], Cr), append(Ds, [D], Dr), rot_columns2([], [Ar, Br, Cr, Dr]).
+rot_columns([A, B, C, D], MR) :- rot_columns(A, B, C, D, MR).
+rot_columns([A|As], [B|Bs], [C|Cs], [D|Ds], MR) :- append(As, [A], Ar), append(Bs, [B], Br),append(Cs, [C], Cr), append(Ds, [D], Dr), MR = [Ar, Br, Cr, Dr].
 
 /*-------------------- Auxiliar Functions --------------------*/
 
@@ -45,9 +43,7 @@ sum34(L):- list_sum(L, T), T==34.
 
 /*sum of a list*/
 list_sum([], 0).
-list_sum([Head|Tail], Sum):-
-     list_sum(Tail, Sum1),
-     Sum is (Sum1 + Head).
+list_sum([Head|Tail], Sum):- list_sum(Tail, Sum1), Sum is (Sum1 + Head).
             
 /*Converting a list into a matrix of 4x4*/
 matrix4x4(Xs, Ys) :- length(Xs, 16), matrix4x4(Xs, [], Ys).
