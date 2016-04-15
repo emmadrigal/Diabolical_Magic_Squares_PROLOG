@@ -5,8 +5,35 @@ diabolic(L):- var(L), showall(M, [[1, 8, 13, 12], [14, 11, 2, 7], [4, 5, 16, 9],
 /*Validates a diabolic magic square typed by the user*/
 diabolic(L) :- nonvar(L),matrix4x4(L, M), check_rows(M), check_columns(M), check_diagonals(M), check_3x3(M), check_2x2(M).
 
-/*Generates three squares*/
-diabolic(L, M, N):- var(L), var(M), var(N), showall(Matrix, [[1, 8, 13, 12], [14, 11, 2, 7], [4, 5, 16, 9], [15, 10, 3, 6]]), Num1 is random(383), Num2 is random(383), Num3 is random(383), nth0(Num1, Matrix, L), nth0(Num2, Matrix, M), nth0(Num3, Matrix, N).
+
+/*Generates two squares*/
+diabolic(A, B):- showall(Matrix, [[1, 8, 13, 12], [14, 11, 2, 7], [4, 5, 16, 9], [15, 10, 3, 6]]), Num1 is random(383), Num2 is random(383), nth0(Num1, Matrix, A), nth0(Num2, Matrix, B).
+
+/*Generates ten squares*/
+diabolic(A, B, C):- showall(Matrix, [[1, 8, 13, 12], [14, 11, 2, 7], [4, 5, 16, 9], [15, 10, 3, 6]]), Num1 is random(383), Num2 is random(383), Num3 is random(383), nth0(Num1, Matrix, A), nth0(Num2, Matrix, B), nth0(Num3, Matrix, C).
+
+/*Generates ten squares*/
+diabolic(A, B, C, D):- showall(Matrix, [[1, 8, 13, 12], [14, 11, 2, 7], [4, 5, 16, 9], [15, 10, 3, 6]]), Num1 is random(383), Num2 is random(383), Num3 is random(383), Num4 is random(383), nth0(Num1, Matrix, A), nth0(Num2, Matrix, B), nth0(Num3, Matrix, C), nth0(Num4, Matrix, D).
+
+/*Generates ten squares*/
+diabolic(A, B, C, D, E):- showall(Matrix, [[1, 8, 13, 12], [14, 11, 2, 7], [4, 5, 16, 9], [15, 10, 3, 6]]), Num1 is random(383), Num2 is random(383), Num3 is random(383), Num4 is random(383), Num5 is random(383), nth0(Num1, Matrix, A), nth0(Num2, Matrix, B), nth0(Num3, Matrix, C), nth0(Num4, Matrix, D), nth0(Num5, Matrix, E).
+
+/*Generates ten squares*/
+diabolic(A, B, C, D, E, F):- showall(Matrix, [[1, 8, 13, 12], [14, 11, 2, 7], [4, 5, 16, 9], [15, 10, 3, 6]]), Num1 is random(383), Num2 is random(383), Num3 is random(383), Num4 is random(383), Num5 is random(383), Num6 is random(383), nth0(Num1, Matrix, A), nth0(Num2, Matrix, B), nth0(Num3, Matrix, C), nth0(Num4, Matrix, D), nth0(Num5, Matrix, E), nth0(Num6, Matrix, F).
+
+/*Generates ten squares*/
+diabolic(A, B, C, D, E, F, G):- showall(Matrix, [[1, 8, 13, 12], [14, 11, 2, 7], [4, 5, 16, 9], [15, 10, 3, 6]]), Num1 is random(383), Num2 is random(383), Num3 is random(383), Num4 is random(383), Num5 is random(383), Num6 is random(383), Num7 is random(383), nth0(Num1, Matrix, A), nth0(Num2, Matrix, B), nth0(Num3, Matrix, C), nth0(Num4, Matrix, D), nth0(Num5, Matrix, E), nth0(Num6, Matrix, F), nth0(Num7, Matrix, G).
+
+/*Generates ten squares*/
+diabolic(A, B, C, D, E, F, G, H):- showall(Matrix, [[1, 8, 13, 12], [14, 11, 2, 7], [4, 5, 16, 9], [15, 10, 3, 6]]), Num1 is random(383), Num2 is random(383), Num3 is random(383), Num4 is random(383), Num5 is random(383), Num6 is random(383), Num7 is random(383), Num8 is random(383), nth0(Num1, Matrix, A), nth0(Num2, Matrix, B), nth0(Num3, Matrix, C), nth0(Num4, Matrix, D), nth0(Num5, Matrix, E), nth0(Num6, Matrix, F), nth0(Num7, Matrix, G), nth0(Num8, Matrix, H).
+
+/*Generates ten squares*/
+diabolic(A, B, C, D, E, F, G, H, I):- showall(Matrix, [[1, 8, 13, 12], [14, 11, 2, 7], [4, 5, 16, 9], [15, 10, 3, 6]]), Num1 is random(383), Num2 is random(383), Num3 is random(383), Num4 is random(383), Num5 is random(383), Num6 is random(383), Num7 is random(383), Num8 is random(383), Num9 is random(383), nth0(Num1, Matrix, A), nth0(Num2, Matrix, B), nth0(Num3, Matrix, C), nth0(Num4, Matrix, D), nth0(Num5, Matrix, E), nth0(Num6, Matrix, F), nth0(Num7, Matrix, G), nth0(Num8, Matrix, H), nth0(Num9, Matrix, I).
+
+
+/*Generates ten squares*/
+diabolic(A, B, C, D, E, F, G, H, I, J):- showall(Matrix, [[1, 8, 13, 12], [14, 11, 2, 7], [4, 5, 16, 9], [15, 10, 3, 6]]), Num1 is random(383), Num2 is random(383), Num3 is random(383), Num4 is random(383), Num5 is random(383), Num6 is random(383), Num7 is random(383), Num8 is random(383), Num9 is random(383), Num10 is random(383), nth0(Num1, Matrix, A), nth0(Num2, Matrix, B), nth0(Num3, Matrix, C), nth0(Num4, Matrix, D), nth0(Num5, Matrix, E), nth0(Num6, Matrix, F), nth0(Num7, Matrix, G), nth0(Num8, Matrix, H), nth0(Num9, Matrix, I), nth0(Num10, Matrix, J).
+
 
 /*Generate an especific and random number of DMS for java*/
 generate(L1, C) :- generateAll(L), generate_aux(L, L1, C, 0).
